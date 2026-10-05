@@ -1,10 +1,9 @@
+import { Card } from '../components/Card';
+
 export function AboutPage() {
   return (
-    <section aria-labelledby="about-heading" className="p-6">
-      <h2 id="about-heading" className="text-xl font-semibold">
-        About
-      </h2>
-      <p className="text-muted">About this project coming soon.</p>
-    </section>
+    <div className="mx-auto max-w-3xl p-4">
+      <Card title="About" description="About this project coming soon." />
+    </div>
   );
 }

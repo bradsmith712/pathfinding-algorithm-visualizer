@@ -24,19 +24,19 @@ Work in order. Check off each task when done. Run `typecheck`, `lint`, and `test
 
 ## Phase 2 — Shell and theming
 
-- [ ] 2.1 Header: logo, title, tagline, nav tabs with active underline
-- [ ] 2.2 Theme toggle (sun/moon) with persistence; default dark
-- [ ] 2.3 Page layout containers matching screenshots (3-column Visualize, sidebar Learn)
+- [x] 2.1 Header: logo, title, tagline, nav tabs with active underline
+- [x] 2.2 Theme toggle (sun/moon) with persistence; default dark
+- [x] 2.3 Page layout containers matching screenshots (3-column Visualize, sidebar Learn)
 
 ## Phase 3 — Grid and drawing
 
-- [ ] 3.1 Grid state (reducer/store): cells, start, end, grid size constants
-- [ ] 3.2 `Grid` and memoized `Cell` components with grid lines and rounded border
-- [ ] 3.3 Pointer-based click and drag drawing (Wall, Erase) with global pointer-up handling
-- [ ] 3.4 Start and End placement tools (single instance each, can't be overwritten)
-- [ ] 3.5 Tool panel UI (Select, Wall, Start, End, Erase) with active state
-- [ ] 3.6 Default start/end positions; Clear Walls button
-- [ ] 3.7 Touch support check on mobile viewport
+- [x] 3.1 Grid state (reducer/store): cells, start, end, grid size constants
+- [x] 3.2 `Grid` and memoized `Cell` components with grid lines and rounded border
+- [x] 3.3 Pointer-based click and drag drawing (Wall, Erase) with global pointer-up handling
+- [x] 3.4 Start and End placement tools (single instance each, can't be overwritten)
+- [x] 3.5 Tool panel UI (Select, Wall, Start, End, Erase) with active state
+- [x] 3.6 Default start/end positions; Clear Walls button
+- [x] 3.7 Touch support check on mobile viewport
 
 ## Phase 4 — Visualize page
 

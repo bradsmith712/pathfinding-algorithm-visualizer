@@ -7,6 +7,8 @@ Tagline: "Explore algorithms. See the paths. Understand the logic."
 
 Read `SPEC.md` for requirements and `TASKS.md` for the work plan. Work through tasks in order, one at a time. Check a task off in `TASKS.md` when done.
 
+UI reference screenshots are in `docs/` (`visualize.png` and `learn.png`). View them when building or checking any UI, and match their layout and styling.
+
 ## Tech stack
 
 - Vite + React + TypeScript (strict mode)
