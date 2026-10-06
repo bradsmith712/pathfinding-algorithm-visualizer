@@ -1,30 +1,32 @@
 import { useCallback, useEffect, useLayoutEffect, useReducer, useRef } from 'react';
 import {
-  FRAME_RATES,
   INITIAL_PLAYBACK,
   playbackReducer,
+  type FrameRate,
   type PlaybackState,
   type RunResult,
-  type Speed,
 } from '../lib/playback';
 
 export interface AnimationControls {
   state: PlaybackState;
-  /** Load a finished search and start playing it (instantly when `instant`). */
+  /** Load a finished search and start playing it (instantly when the rate is 'instant'). */
   play: (run: RunResult, rows: number, cols: number) => void;
+  /** Load a finished search paused at the beginning, ready for `step`. */
+  load: (run: RunResult, rows: number, cols: number) => void;
   pause: () => void;
   resume: () => void;
-  /** Advance one frame while paused. */
+  /** Advance one frame (while paused). */
   step: () => void;
   reset: () => void;
 }
 
 /**
- * Plays back a precomputed search at the chosen speed using requestAnimationFrame.
- * Several frames are applied per animation frame at high speeds, so the grid
- * re-renders at most once per display frame. `instant` skips straight to the end.
+ * Plays back a precomputed search using requestAnimationFrame. Several frames
+ * are applied per display frame at high rates, so the grid re-renders at most
+ * once per display frame. `rate` must be a stable object (e.g. a constant);
+ * 'instant' skips straight to the end.
  */
-export function useAnimation(speed: Speed, instant: boolean): AnimationControls {
+export function useAnimation(rate: FrameRate | 'instant'): AnimationControls {
   const [state, dispatch] = useReducer(playbackReducer, INITIAL_PLAYBACK);
   const stateRef = useRef(state);
   useLayoutEffect(() => {
@@ -36,12 +38,11 @@ export function useAnimation(speed: Speed, instant: boolean): AnimationControls 
   useEffect(() => {
     if (status !== 'running') return;
     // Switching to Instant (or reduced motion) mid-run jumps to the end.
-    if (speed === 'instant' || instant) {
+    if (rate === 'instant') {
       dispatch({ type: 'advance', count: Infinity });
       return;
     }
 
-    const rates = FRAME_RATES[speed];
     let last = performance.now();
     let budget = 0;
     let handle = 0;
@@ -49,16 +50,16 @@ export function useAnimation(speed: Speed, instant: boolean): AnimationControls 
     const tick = (now: number) => {
       const { run, cursor } = stateRef.current;
       if (!run) return;
-      const inVisits = cursor < run.visitFrameCount;
-      budget += ((now - last) / 1000) * (inVisits ? rates.visit : rates.path);
+      const inSearch = cursor < run.pathStart;
+      budget += ((now - last) / 1000) * (inSearch ? rate.search : rate.path);
       last = now;
 
       let count = Math.floor(budget);
       if (count > 0) {
         budget -= count;
-        if (inVisits && cursor + count >= run.visitFrameCount) {
-          // Don't let a burst of visit frames spill into the slower path phase.
-          count = run.visitFrameCount - cursor;
+        if (inSearch && cursor + count >= run.pathStart) {
+          // Don't let a burst of search frames spill into the slower path phase.
+          count = run.pathStart - cursor;
           budget = 0;
         }
         dispatch({ type: 'advance', count });
@@ -68,21 +69,26 @@ export function useAnimation(speed: Speed, instant: boolean): AnimationControls 
 
     handle = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(handle);
-  }, [status, speed, instant]);
+  }, [status, rate]);
 
-  const skipAnimation = instant || speed === 'instant';
+  const instant = rate === 'instant';
   const play = useCallback(
     (run: RunResult, rows: number, cols: number) => {
       dispatch({ type: 'load', run, rows, cols });
       // Batched with the load, so the empty overlay never paints.
-      if (skipAnimation) dispatch({ type: 'advance', count: Infinity });
+      if (instant) dispatch({ type: 'advance', count: Infinity });
     },
-    [skipAnimation],
+    [instant],
+  );
+  const load = useCallback(
+    (run: RunResult, rows: number, cols: number) =>
+      dispatch({ type: 'load', run, rows, cols, paused: true }),
+    [],
   );
   const pause = useCallback(() => dispatch({ type: 'pause' }), []);
   const resume = useCallback(() => dispatch({ type: 'resume' }), []);
   const step = useCallback(() => dispatch({ type: 'advance', count: 1 }), []);
   const reset = useCallback(() => dispatch({ type: 'reset' }), []);
 
-  return { state, play, pause, resume, step, reset };
+  return { state, play, load, pause, resume, step, reset };
 }

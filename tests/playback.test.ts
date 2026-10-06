@@ -5,8 +5,8 @@ import { formatDuration } from '../src/lib/format';
 import {
   INITIAL_PLAYBACK,
   playbackReducer,
+  demoPhase,
   runAlgorithm,
-  visitedSoFar,
   type PlaybackState,
   type RunResult,
 } from '../src/lib/playback';
@@ -23,15 +23,15 @@ describe('runAlgorithm', () => {
     const run = runAlgorithm(astar, input);
     expect(run.found).toBe(true);
     expect(run.pathLength).toBe(5);
-    expect(run.visitFrameCount).toBe(run.visited);
+    expect(run.pathStart).toBe(run.visited);
     const kinds = run.frames.map((f) => f.kind);
-    expect(kinds.slice(0, run.visitFrameCount).every((k) => k === 'visit')).toBe(true);
-    expect(kinds.slice(run.visitFrameCount)).toEqual(['path', 'path', 'path', 'path']);
+    expect(kinds.slice(0, run.pathStart).every((k) => k === 'visit')).toBe(true);
+    expect(kinds.slice(run.pathStart)).toEqual(['path', 'path', 'path', 'path']);
   });
 
   it('measures only the computation with the supplied clock', () => {
     let t = 100;
-    const run = runAlgorithm(bfs, input, () => (t += 7));
+    const run = runAlgorithm(bfs, input, { now: () => (t += 7) });
     expect(run.durationMs).toBe(7);
   });
 
@@ -39,6 +39,31 @@ describe('runAlgorithm', () => {
     const run = runAlgorithm(bfs, parseGrid(['S#E']));
     expect(run.found).toBe(false);
     expect(run.frames).toEqual([{ kind: 'visit', node: { row: 0, col: 0 } }]);
+    expect(run.pathStart).toBe(1);
+  });
+
+  it('groups the neighbors added after each visit into one frontier frame when asked', () => {
+    const run = runAlgorithm(bfs, parseGrid(['...', '.S.', '..E']), { frontier: true });
+    expect(run.frames.slice(0, 2)).toEqual([
+      { kind: 'visit', node: { row: 1, col: 1 } },
+      {
+        kind: 'frontier',
+        nodes: [
+          { row: 0, col: 1 },
+          { row: 1, col: 2 },
+          { row: 2, col: 1 },
+          { row: 1, col: 0 },
+        ],
+      },
+    ]);
+    // Never two frontier frames in a row; path frames come last.
+    for (let i = 1; i < run.pathStart; i++) {
+      expect(run.frames[i]!.kind === 'frontier' && run.frames[i - 1]!.kind === 'frontier').toBe(
+        false,
+      );
+    }
+    expect(run.frames.slice(run.pathStart).every((f) => f.kind === 'path')).toBe(true);
+    expect(run.frames.filter((f) => f.kind === 'visit')).toHaveLength(run.visited);
   });
 });
 
@@ -55,8 +80,8 @@ describe('playbackReducer', () => {
     state = playbackReducer(state, { type: 'advance', count: 2 });
     expect(state.cursor).toBe(2);
     expect(state.overlay![0]![0]).toBe('visited');
-    expect(state.current).toEqual(state.run!.frames[1]!.node);
-    expect(visitedSoFar(state)).toBe(2);
+    expect(state.current).toEqual((state.run!.frames[1] as { node: unknown }).node);
+    expect(state.visitedShown).toBe(2);
   });
 
   it('finishes when all frames are applied and clears the current node', () => {
@@ -64,7 +89,7 @@ describe('playbackReducer', () => {
     expect(state.status).toBe('finished');
     expect(state.current).toBeNull();
     expect(state.overlay!.flat().filter((c) => c === 'path')).toHaveLength(4);
-    expect(visitedSoFar(state)).toBe(state.run!.visited);
+    expect(state.visitedShown).toBe(state.run!.visited);
   });
 
   it('pauses, steps while paused, and resumes', () => {
@@ -95,7 +120,7 @@ describe('playbackReducer', () => {
   it('finishes immediately when there is nothing to animate', () => {
     const run: RunResult = {
       frames: [],
-      visitFrameCount: 0,
+      pathStart: 0,
       found: false,
       visited: 0,
       pathLength: 0,
@@ -109,6 +134,61 @@ describe('playbackReducer', () => {
     const after = playbackReducer(before, { type: 'advance', count: 1 });
     expect(after.overlay![0]).not.toBe(before.overlay![0]);
     expect(after.overlay![2]).toBe(before.overlay![2]);
+  });
+});
+
+describe('playback with frontier frames', () => {
+  const demoInput = parseGrid(['...', '.S.', '..E']);
+  const run = runAlgorithm(bfs, demoInput, { frontier: true });
+
+  it('can load paused at the start for stepping', () => {
+    const state = playbackReducer(INITIAL_PLAYBACK, {
+      type: 'load',
+      run,
+      rows: 3,
+      cols: 3,
+      paused: true,
+    });
+    expect(state.status).toBe('paused');
+    expect(state.cursor).toBe(0);
+  });
+
+  it('frontier frames change nothing on the grid and keep the current node', () => {
+    let state = playbackReducer(INITIAL_PLAYBACK, {
+      type: 'load',
+      run,
+      rows: 3,
+      cols: 3,
+      paused: true,
+    });
+    state = playbackReducer(state, { type: 'advance', count: 1 });
+    const afterVisit = state;
+    state = playbackReducer(state, { type: 'advance', count: 1 });
+    expect(state.overlay).toBe(afterVisit.overlay);
+    expect(state.current).toEqual({ row: 1, col: 1 });
+    expect(state.visitedShown).toBe(1);
+  });
+
+  it('maps progress to the four demo phases', () => {
+    let state = playbackReducer(INITIAL_PLAYBACK, {
+      type: 'load',
+      run,
+      rows: 3,
+      cols: 3,
+      paused: true,
+    });
+    expect(demoPhase(INITIAL_PLAYBACK)).toBe(0);
+    expect(demoPhase(state)).toBe(0);
+    state = playbackReducer(state, { type: 'advance', count: 1 });
+    expect(demoPhase(state)).toBe(1);
+    state = playbackReducer(state, { type: 'advance', count: 1 });
+    expect(demoPhase(state)).toBe(2);
+    state = playbackReducer(state, { type: 'advance', count: run.pathStart - 2 + 1 });
+    expect(state.run!.frames[state.cursor - 1]!.kind).toBe('path');
+    expect(demoPhase(state)).toBe(3);
+    state = playbackReducer(state, { type: 'advance', count: Infinity });
+    expect(state.status).toBe('finished');
+    expect(demoPhase(state)).toBe(3);
   });
 });
 

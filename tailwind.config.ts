@@ -16,6 +16,18 @@ export default {
         muted: token('muted'),
         accent: token('accent'),
         'accent-fg': token('accent-fg'),
+        tone: {
+          blue: token('tone-blue'),
+          green: token('tone-green'),
+          yellow: token('tone-yellow'),
+          red: token('tone-red'),
+          violet: token('tone-violet'),
+        },
+        code: {
+          keyword: token('code-keyword'),
+          function: token('code-function'),
+          number: token('code-number'),
+        },
         cell: {
           empty: token('cell-empty'),
           line: token('cell-line'),

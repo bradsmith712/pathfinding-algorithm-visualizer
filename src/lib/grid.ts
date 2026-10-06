@@ -54,3 +54,36 @@ export function gridWriter<T>(cells: T[][]) {
     result: (): T[][] => next ?? cells,
   };
 }
+
+/**
+ * Builds a grid from rows of text: `S` start, `E` end, `#` wall, `.` empty.
+ * Used for the Learn demo's preset maze and in tests.
+ */
+export function gridFromRows(rows: readonly string[]): {
+  grid: CellType[][];
+  start: Pos;
+  end: Pos;
+} {
+  let start: Pos | undefined;
+  let end: Pos | undefined;
+  const grid: CellType[][] = rows.map((line, row) =>
+    [...line].map((ch, col): CellType => {
+      switch (ch) {
+        case 'S':
+          start = { row, col };
+          return 'start';
+        case 'E':
+          end = { row, col };
+          return 'end';
+        case '#':
+          return 'wall';
+        case '.':
+          return 'empty';
+        default:
+          throw new Error(`Unexpected grid character "${ch}"`);
+      }
+    }),
+  );
+  if (!start || !end) throw new Error('Grid needs both S and E');
+  return { grid, start, end };
+}

@@ -8,16 +8,18 @@ import type { Algorithm, AlgorithmId } from './types';
 export interface AlgorithmEntry {
   id: AlgorithmId;
   name: string;
+  /** Short form for headings, e.g. "How A* Works". */
+  shortName: string;
   run: Algorithm;
 }
 
 /** All algorithms in display order. Learn-page content lives in src/data/algorithms.ts. */
 export const ALGORITHMS: readonly AlgorithmEntry[] = [
-  { id: 'astar', name: 'A* (A Star)', run: astar },
-  { id: 'dijkstra', name: "Dijkstra's Algorithm", run: dijkstra },
-  { id: 'bfs', name: 'Breadth-First Search (BFS)', run: bfs },
-  { id: 'dfs', name: 'Depth-First Search (DFS)', run: dfs },
-  { id: 'greedy', name: 'Greedy Best-First Search', run: greedy },
+  { id: 'astar', name: 'A* (A Star)', shortName: 'A*', run: astar },
+  { id: 'dijkstra', name: "Dijkstra's Algorithm", shortName: "Dijkstra's", run: dijkstra },
+  { id: 'bfs', name: 'Breadth-First Search (BFS)', shortName: 'BFS', run: bfs },
+  { id: 'dfs', name: 'Depth-First Search (DFS)', shortName: 'DFS', run: dfs },
+  { id: 'greedy', name: 'Greedy Best-First Search', shortName: 'Greedy Best-First', run: greedy },
 ];
 
 export const DEFAULT_ALGORITHM_ID: AlgorithmId = 'astar';

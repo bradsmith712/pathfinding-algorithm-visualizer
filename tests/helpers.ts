@@ -1,35 +1,11 @@
 import { expect } from 'vitest';
 import type { Algorithm, AlgorithmInput, CellType, Pos, StepEvent } from '../src/algorithms/types';
-import { isWalkable } from '../src/lib/grid';
+import { gridFromRows, isWalkable } from '../src/lib/grid';
 import { manhattan } from '../src/lib/heuristics';
 
-/**
- * Builds an AlgorithmInput from rows of text:
- * `S` start, `E` end, `#` wall, `.` empty.
- */
+/** Builds an AlgorithmInput from rows of text: `S` start, `E` end, `#` wall, `.` empty. */
 export function parseGrid(rows: string[]): AlgorithmInput {
-  let start: Pos | undefined;
-  let end: Pos | undefined;
-  const grid: CellType[][] = rows.map((line, row) =>
-    [...line].map((ch, col): CellType => {
-      switch (ch) {
-        case 'S':
-          start = { row, col };
-          return 'start';
-        case 'E':
-          end = { row, col };
-          return 'end';
-        case '#':
-          return 'wall';
-        case '.':
-          return 'empty';
-        default:
-          throw new Error(`Unexpected grid character "${ch}"`);
-      }
-    }),
-  );
-  if (!start || !end) throw new Error('Grid needs both S and E');
-  return { grid, start, end };
+  return gridFromRows(rows);
 }
 
 export interface RunResult {

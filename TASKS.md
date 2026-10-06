@@ -53,15 +53,15 @@ Work in order. Check off each task when done. Run `typecheck`, `lint`, and `test
 
 ## Phase 5 — Learn page
 
-- [ ] 5.1 Write `data/algorithms.ts`: for all 5 algorithms — name, subtitle, intro, 3 feature cards, 4 step descriptions, pseudo-code, key concepts, complexity table, use cases
-- [ ] 5.2 Algorithm list sidebar with selection state and icons
-- [ ] 5.3 Intro + feature cards section
-- [ ] 5.4 Mini-demo grid with preset maze, reusing `Grid` and the real algorithm
-- [ ] 5.5 Play / Step / Reset for the demo; step tabs (Initialize, Explore, Prioritize, Find Path) that track progress and are clickable
-- [ ] 5.6 Step explanation panel (incl. `f(n) = g(n) + h(n)` for A*) and demo legend
-- [ ] 5.7 Pseudo-code panel with line numbers, syntax colors, two-column layout
-- [ ] 5.8 Right sidebar: Key Concepts, Time & Space Complexity, Use Cases
-- [ ] 5.9 Deep link from Visualize "Learn more" to the selected algorithm (e.g. `/learn/astar`)
+- [x] 5.1 Write `data/algorithms.ts`: for all 5 algorithms — name, subtitle, intro, 3 feature cards, 4 step descriptions, pseudo-code, key concepts, complexity table, use cases
+- [x] 5.2 Algorithm list sidebar with selection state and icons
+- [x] 5.3 Intro + feature cards section
+- [x] 5.4 Mini-demo grid with preset maze, reusing `Grid` and the real algorithm
+- [x] 5.5 Play / Step / Reset for the demo; step tabs (Initialize, Explore, Prioritize, Find Path) that track progress and are clickable
+- [x] 5.6 Step explanation panel (incl. `f(n) = g(n) + h(n)` for A*) and demo legend
+- [x] 5.7 Pseudo-code panel with line numbers, syntax colors, two-column layout
+- [x] 5.8 Right sidebar: Key Concepts, Time & Space Complexity, Use Cases
+- [x] 5.9 Deep link from Visualize "Learn more" to the selected algorithm (e.g. `/learn/astar`)
 
 ## Phase 6 — Polish
 

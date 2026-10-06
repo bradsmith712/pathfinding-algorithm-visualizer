@@ -6,6 +6,16 @@ describe('algorithm registry', () => {
     expect(ALGORITHMS.map((a) => a.id)).toEqual(['astar', 'dijkstra', 'bfs', 'dfs', 'greedy']);
   });
 
+  it('has a short name for every algorithm', () => {
+    expect(ALGORITHMS.map((a) => a.shortName)).toEqual([
+      'A*',
+      "Dijkstra's",
+      'BFS',
+      'DFS',
+      'Greedy Best-First',
+    ]);
+  });
+
   it('looks up algorithms by id', () => {
     expect(getAlgorithm('bfs').name).toBe('Breadth-First Search (BFS)');
     expect(getAlgorithm(DEFAULT_ALGORITHM_ID).id).toBe('astar');

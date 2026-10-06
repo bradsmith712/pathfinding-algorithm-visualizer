@@ -13,7 +13,7 @@ import { useGridDrawing } from '../hooks/useGridDrawing';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { GRID_COLS, GRID_ROWS } from '../lib/constants';
 import { createGridState, gridReducer, hasWalls, type DrawTool, type Tool } from '../lib/gridState';
-import { runAlgorithm, visitedSoFar, type Speed } from '../lib/playback';
+import { FRAME_RATES, runAlgorithm, type Speed } from '../lib/playback';
 
 // Fit the grid to the viewport height on wide screens (header + padding ≈ 8rem).
 const GRID_SIZE_STYLE = { maxWidth: `calc((100dvh - 8rem) * ${GRID_COLS} / ${GRID_ROWS})` };
@@ -26,7 +26,9 @@ export function VisualizePage() {
   const [algorithmId, setAlgorithmId] = useState<AlgorithmId>(DEFAULT_ALGORITHM_ID);
   const [speed, setSpeed] = useState<Speed>('normal');
   const reducedMotion = usePrefersReducedMotion();
-  const animation = useAnimation(speed, reducedMotion);
+  const animation = useAnimation(
+    reducedMotion || speed === 'instant' ? 'instant' : FRAME_RATES[speed],
+  );
   const { status, run } = animation.state;
   const { reset } = animation;
 
@@ -98,7 +100,7 @@ export function VisualizePage() {
 
       <aside aria-label="Results" className="order-3 flex flex-col gap-4">
         <Legend />
-        <Stats status={status} run={run} visitedShown={visitedSoFar(animation.state)} />
+        <Stats status={status} run={run} visitedShown={animation.state.visitedShown} />
         <InfoCard />
       </aside>
     </div>

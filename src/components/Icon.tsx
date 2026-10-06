@@ -17,7 +17,21 @@ export type IconName =
   | 'arrow-right'
   | 'layers'
   | 'chart'
-  | 'info';
+  | 'info'
+  | 'star'
+  | 'network'
+  | 'blocks'
+  | 'branch'
+  | 'send'
+  | 'check'
+  | 'zap'
+  | 'target'
+  | 'alert'
+  | 'cpu'
+  | 'list'
+  | 'rings'
+  | 'bulb'
+  | 'step';
 
 const PATHS: Record<IconName, ReactNode> = {
   logo: (
@@ -70,6 +84,77 @@ const PATHS: Record<IconName, ReactNode> = {
     <>
       <circle cx="12" cy="12" r="10" fill="currentColor" stroke="none" />
       <path d="M12 11v6M12 7.5v.01" className="stroke-bg" strokeWidth={2.5} />
+    </>
+  ),
+  star: (
+    <path
+      d="M12 2.5 14.9 8.5l6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9Z"
+      fill="currentColor"
+      strokeWidth={1}
+    />
+  ),
+  network: (
+    <>
+      <path d="M10.8 7.4 6.4 15.6M13.2 7.4l4.4 8.2M7.6 18.5h8.8" />
+      <circle cx="12" cy="5" r="2.6" fill="currentColor" stroke="none" />
+      <circle cx="5" cy="18.5" r="2.6" fill="currentColor" stroke="none" />
+      <circle cx="19" cy="18.5" r="2.6" fill="currentColor" stroke="none" />
+    </>
+  ),
+  blocks: (
+    <>
+      <rect x="3" y="3" width="7" height="7" rx="1.5" fill="currentColor" stroke="none" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  branch: (
+    <>
+      <path d="M6 7v10M18 9a9 9 0 0 1-9 9" />
+      <circle cx="6" cy="5" r="2.5" fill="currentColor" stroke="none" />
+      <circle cx="6" cy="19" r="2.5" fill="currentColor" stroke="none" />
+      <circle cx="18" cy="6.5" r="2.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  send: <path d="M21.5 2.5 2.5 10l8 3.5 3.5 8Zm0 0-11 11" fill="currentColor" strokeWidth={1.5} />,
+  check: <path d="m5 12.5 4.5 4.5L19 7.5" strokeWidth={2.5} />,
+  zap: <path d="M13 2 3 14h9l-1 8 10-12h-9Z" fill="currentColor" strokeWidth={1} />,
+  target: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    </>
+  ),
+  alert: <path d="M12 3 2 20.5h20ZM12 10v4.5M12 17.5v.01" />,
+  cpu: (
+    <>
+      <rect x="6" y="6" width="12" height="12" rx="2" />
+      <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" />
+    </>
+  ),
+  list: <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" strokeWidth={2.5} />,
+  rings: (
+    <>
+      <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+      <path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2" />
+    </>
+  ),
+  bulb: (
+    <>
+      <path
+        d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z"
+        fill="currentColor"
+        stroke="none"
+      />
+      <path d="M9.5 20h5M10.5 22.5h3" />
+    </>
+  ),
+  step: (
+    <>
+      <path d="M5 4.5v15l10-7.5Z" fill="currentColor" stroke="none" />
+      <rect x="16.5" y="4.5" width="3" height="15" rx="1" fill="currentColor" stroke="none" />
     </>
   ),
 };

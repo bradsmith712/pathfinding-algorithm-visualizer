@@ -86,7 +86,7 @@ Title "Algorithms — Click an algorithm to learn more." Cards, each with an ico
 3. **"How <Algorithm> Works" interactive demo**
    - Buttons: **Play**, **Step**, **Reset**.
    - Four step tabs with numbered circles: **Initialize → Explore → Prioritize → Find Path**. The active tab is blue; tabs advance as the demo progresses and are also clickable.
-   - Left: small fixed grid (about 14 × 13) running the real algorithm on a preset maze. Shows a yellow outlined "current" node.
+   - Left: small fixed grid (14 columns × 8 rows, matching docs/learn.png) running the real algorithm on a preset maze. Shows a yellow outlined "current" node.
    - Right: step explanation text. For A* the Initialize step shows the formula `f(n) = g(n) + h(n)` and definitions of g(n), h(n), f(n).
    - Legend under the mini grid: Empty, Wall, Start, Goal, Visited, Current, Path.
    - Step tabs map to algorithm phases, so each algorithm provides 4 step descriptions in its data file (for non-heuristic algorithms, "Prioritize" explains queue/stack/priority ordering).

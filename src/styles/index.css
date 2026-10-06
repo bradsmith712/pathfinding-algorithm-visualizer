@@ -31,6 +31,18 @@
     --color-cell-visited-recent: 30 100 210;
     --color-cell-path: 14 165 233;
     --color-cell-current: 234 179 8;
+
+    /* Icon tones (Learn list and feature cards) */
+    --color-tone-blue: 30 144 255;
+    --color-tone-green: 22 163 74;
+    --color-tone-yellow: 202 138 4;
+    --color-tone-red: 220 38 38;
+    --color-tone-violet: 124 58 237;
+
+    /* Pseudo-code syntax colors */
+    --color-code-keyword: 190 24 140;
+    --color-code-function: 3 105 200;
+    --color-code-number: 194 85 10;
   }
 
   .dark {
@@ -53,6 +65,16 @@
     --color-cell-visited-recent: 24 76 150;
     --color-cell-path: 34 178 250;
     --color-cell-current: 250 204 21;
+
+    --color-tone-blue: 56 152 255;
+    --color-tone-green: 52 211 110;
+    --color-tone-yellow: 250 190 40;
+    --color-tone-red: 244 80 80;
+    --color-tone-violet: 140 110 250;
+
+    --color-code-keyword: 240 110 200;
+    --color-code-function: 90 185 255;
+    --color-code-number: 250 170 90;
   }
 
   html {

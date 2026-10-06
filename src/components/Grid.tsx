@@ -10,6 +10,8 @@ interface GridProps {
   overlay?: Overlay | null;
   /** Most recently visited node, highlighted while animating. */
   current?: Pos | null;
+  /** 'fill' (darker blue, Visualize) or 'outline' (yellow outline, Learn demo). */
+  currentStyle?: 'fill' | 'outline';
   /** Accessible name describing the grid. */
   label: string;
   /** Pointer handlers from useGridDrawing; omit for a read-only grid. */
@@ -29,6 +31,7 @@ export function Grid({
   cells,
   overlay,
   current,
+  currentStyle = 'fill',
   label,
   drawing,
   className = '',
@@ -59,7 +62,7 @@ export function Grid({
               col={c}
               type={type}
               overlay={overlay?.[r]?.[c] ?? null}
-              isCurrent={current?.row === r && current.col === c}
+              current={current?.row === r && current.col === c ? currentStyle : null}
             />
           )),
         )}
