@@ -28,6 +28,22 @@ export default {
           current: token('cell-current'),
         },
       },
+      keyframes: {
+        'cell-visit': {
+          '0%': { transform: 'scale(0.3)', borderRadius: '50%' },
+          '60%': { transform: 'scale(1.1)', borderRadius: '20%' },
+          '100%': { transform: 'scale(1)', borderRadius: '0' },
+        },
+        'cell-path': {
+          '0%': { transform: 'scale(0.6)' },
+          '50%': { transform: 'scale(1.2)' },
+          '100%': { transform: 'scale(1)' },
+        },
+      },
+      animation: {
+        'cell-visit': 'cell-visit 300ms ease-out',
+        'cell-path': 'cell-path 250ms ease-out',
+      },
       borderRadius: {
         card: 'var(--radius-card)',
         control: 'var(--radius-control)',

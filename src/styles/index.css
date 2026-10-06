@@ -12,46 +12,46 @@
     --radius-card: 12px;
     --radius-control: 8px;
 
-    /* Light theme */
-    --color-bg: 243 246 251;
+    /* Light theme: same hues, light backgrounds */
+    --color-bg: 244 246 250;
     --color-surface: 255 255 255;
-    --color-surface-raised: 236 241 248;
-    --color-border: 214 222 235;
+    --color-surface-raised: 237 241 246;
+    --color-border: 216 223 233;
     --color-fg: 15 23 42;
-    --color-muted: 90 104 128;
+    --color-muted: 84 98 120;
     --color-accent: 30 144 255;
     --color-accent-fg: 255 255 255;
 
     --color-cell-empty: 255 255 255;
-    --color-cell-line: 214 222 235;
-    --color-cell-wall: 71 85 105;
-    --color-cell-start: 34 197 94;
-    --color-cell-end: 239 68 68;
+    --color-cell-line: 216 223 233;
+    --color-cell-wall: 98 104 113;
+    --color-cell-start: 22 186 86;
+    --color-cell-end: 232 60 60;
     --color-cell-visited: 96 165 250;
-    --color-cell-visited-recent: 37 99 235;
-    --color-cell-path: 6 182 212;
+    --color-cell-visited-recent: 30 100 210;
+    --color-cell-path: 14 165 233;
     --color-cell-current: 234 179 8;
   }
 
   .dark {
-    /* Dark theme (default) */
-    --color-bg: 11 18 32;
-    --color-surface: 17 26 44;
-    --color-surface-raised: 24 35 58;
-    --color-border: 36 50 78;
-    --color-fg: 226 232 240;
-    --color-muted: 148 163 184;
+    /* Dark theme (default), sampled from docs/visualize.png */
+    --color-bg: 10 14 21;
+    --color-surface: 17 23 32;
+    --color-surface-raised: 27 34 45;
+    --color-border: 35 44 57;
+    --color-fg: 232 236 242;
+    --color-muted: 160 170 186;
     --color-accent: 30 144 255;
     --color-accent-fg: 255 255 255;
 
-    --color-cell-empty: 11 18 32;
-    --color-cell-line: 30 42 66;
-    --color-cell-wall: 100 116 139;
-    --color-cell-start: 34 197 94;
-    --color-cell-end: 239 68 68;
-    --color-cell-visited: 37 99 235;
-    --color-cell-visited-recent: 29 78 216;
-    --color-cell-path: 34 211 238;
+    --color-cell-empty: 11 16 24;
+    --color-cell-line: 38 47 61;
+    --color-cell-wall: 98 104 113;
+    --color-cell-start: 37 211 102;
+    --color-cell-end: 242 72 72;
+    --color-cell-visited: 30 128 240;
+    --color-cell-visited-recent: 24 76 150;
+    --color-cell-path: 34 178 250;
     --color-cell-current: 250 204 21;
   }
 
@@ -79,5 +79,37 @@
   :focus-visible {
     outline: 2px solid rgb(var(--color-accent));
     outline-offset: 2px;
+  }
+}
+
+/* Speed slider: thin track filled with the accent up to the thumb (--range-fill). */
+@layer components {
+  .range {
+    @apply h-5 w-full cursor-pointer appearance-none bg-transparent disabled:cursor-not-allowed;
+  }
+  .range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-accent)) var(--range-fill, 0%),
+      rgb(var(--color-surface-raised)) var(--range-fill, 0%)
+    );
+  }
+  .range::-moz-range-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: rgb(var(--color-surface-raised));
+  }
+  .range::-moz-range-progress {
+    height: 4px;
+    border-radius: 9999px;
+    background: rgb(var(--color-accent));
+  }
+  .range::-webkit-slider-thumb {
+    @apply -mt-[6px] h-4 w-4 appearance-none rounded-full border-0 bg-accent;
+  }
+  .range::-moz-range-thumb {
+    @apply h-4 w-4 rounded-full border-0 bg-accent;
   }
 }

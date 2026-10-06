@@ -16,7 +16,7 @@ export function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
     <div
       role="group"
       aria-label="Color theme"
-      className="flex rounded-control border border-border bg-surface-raised p-0.5"
+      className="flex gap-0.5 rounded-[10px] border border-border bg-surface p-1"
     >
       {OPTIONS.map(({ value, label, icon }) => {
         const active = theme === value;
@@ -28,11 +28,11 @@ export function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
             aria-pressed={active}
             title={label}
             onClick={() => onChange(value)}
-            className={`rounded-[6px] p-1.5 transition-colors ${
-              active ? 'bg-accent text-accent-fg' : 'text-muted hover:text-fg'
+            className={`flex h-9 w-11 items-center justify-center rounded-[7px] transition-colors ${
+              active ? 'bg-surface-raised text-fg shadow-sm' : 'text-muted hover:text-fg'
             }`}
           >
-            <Icon name={icon} className="h-4 w-4" />
+            <Icon name={icon} className="h-5 w-5" />
           </button>
         );
       })}

@@ -1,6 +1,6 @@
 import type { CellType, Pos } from '../algorithms/types';
 import { DEFAULT_END, DEFAULT_START, GRID_COLS, GRID_ROWS } from './constants';
-import { createEmptyGrid, inBounds, samePos } from './grid';
+import { createEmptyGrid, gridWriter, inBounds, samePos } from './grid';
 
 export type DrawTool = 'wall' | 'erase' | 'start' | 'end';
 export type Tool = 'select' | DrawTool;
@@ -32,27 +32,6 @@ export function createGridState(
   return { cells, start, end };
 }
 
-/**
- * Copy-on-write cell updates: each touched row is copied once, untouched rows
- * keep their identity so memoized rows and cells skip re-rendering.
- */
-function cellWriter(cells: CellType[][]) {
-  let next: CellType[][] | undefined;
-  const copiedRows = new Set<number>();
-  return {
-    set(pos: Pos, type: CellType) {
-      next ??= cells.slice();
-      if (!copiedRows.has(pos.row)) {
-        next[pos.row] = next[pos.row]!.slice();
-        copiedRows.add(pos.row);
-      }
-      next[pos.row]![pos.col] = type;
-    },
-    /** The updated grid, or the original if nothing changed. */
-    result: () => next ?? cells,
-  };
-}
-
 function paint(state: GridState, tool: DrawTool, positions: Pos[]): GridState {
   const { cells } = state;
   const valid = positions.filter((p) => inBounds(cells, p));
@@ -62,7 +41,7 @@ function paint(state: GridState, tool: DrawTool, positions: Pos[]): GridState {
     const current = tool === 'start' ? state.start : state.end;
     const other = tool === 'start' ? state.end : state.start;
     if (!target || samePos(target, current) || samePos(target, other)) return state;
-    const writer = cellWriter(cells);
+    const writer = gridWriter(cells);
     writer.set(current, 'empty');
     writer.set(target, tool);
     return { ...state, cells: writer.result(), [tool]: target };
@@ -70,7 +49,7 @@ function paint(state: GridState, tool: DrawTool, positions: Pos[]): GridState {
 
   // Walls only go on empty cells, so start and end can't be overwritten.
   const [from, to]: [CellType, CellType] = tool === 'wall' ? ['empty', 'wall'] : ['wall', 'empty'];
-  const writer = cellWriter(cells);
+  const writer = gridWriter(cells);
   for (const p of valid) {
     if (cells[p.row]![p.col] === from) writer.set(p, to);
   }
@@ -79,7 +58,7 @@ function paint(state: GridState, tool: DrawTool, positions: Pos[]): GridState {
 }
 
 function clearWalls(state: GridState): GridState {
-  const writer = cellWriter(state.cells);
+  const writer = gridWriter(state.cells);
   state.cells.forEach((row, r) =>
     row.forEach((type, c) => {
       if (type === 'wall') writer.set({ row: r, col: c }, 'empty');

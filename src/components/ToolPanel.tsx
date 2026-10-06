@@ -3,11 +3,11 @@ import { Card } from './Card';
 import { Icon } from './Icon';
 
 const TOOLS: { id: Tool; label: string; iconClass: string }[] = [
-  { id: 'select', label: 'Select', iconClass: 'text-muted' },
-  { id: 'wall', label: 'Wall', iconClass: 'text-cell-wall' },
+  { id: 'select', label: 'Select', iconClass: 'text-accent' },
+  { id: 'wall', label: 'Wall', iconClass: 'text-fg' },
   { id: 'start', label: 'Start', iconClass: 'text-cell-start' },
   { id: 'end', label: 'End', iconClass: 'text-cell-end' },
-  { id: 'erase', label: 'Erase', iconClass: 'text-muted' },
+  { id: 'erase', label: 'Erase', iconClass: 'text-fg' },
 ];
 
 interface ToolPanelProps {
@@ -35,16 +35,17 @@ export function ToolPanel({
             <button
               key={id}
               type="button"
+              aria-label={`${label} tool`}
               aria-pressed={active}
               disabled={disabled}
               onClick={() => onToolChange(id)}
-              className={`flex flex-col items-center gap-1 rounded-control border px-1 py-2 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+              className={`flex flex-col items-center gap-1.5 rounded-control border px-1 pb-2 pt-2.5 text-xs transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
                 active
-                  ? 'border-accent bg-accent/10 text-fg'
-                  : 'border-border bg-surface-raised text-muted hover:text-fg'
+                  ? 'border-accent bg-accent/10 text-accent'
+                  : 'border-border bg-surface-raised text-fg/85 hover:border-muted/50'
               }`}
             >
-              <Icon name={id} className={`h-5 w-5 ${iconClass}`} />
+              <Icon name={id} className={`h-6 w-6 ${iconClass}`} />
               {label}
             </button>
           );
@@ -54,9 +55,9 @@ export function ToolPanel({
         type="button"
         onClick={onClearWalls}
         disabled={disabled || !canClearWalls}
-        className="mt-3 flex w-full items-center justify-center gap-2 rounded-control border border-border px-3 py-1.5 text-sm text-muted transition-colors hover:text-fg disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:text-muted"
+        className="ml-auto mt-2 flex items-center gap-1.5 rounded-control px-1 py-1 text-xs text-muted transition-colors hover:text-fg disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:text-muted"
       >
-        <Icon name="trash" className="h-4 w-4" />
+        <Icon name="trash" className="h-3.5 w-3.5" />
         Clear Walls
       </button>
     </Card>

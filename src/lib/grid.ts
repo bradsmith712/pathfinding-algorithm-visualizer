@@ -33,3 +33,24 @@ export function samePos(a: Pos, b: Pos): boolean {
 export function createEmptyGrid(rows: number, cols: number): CellType[][] {
   return Array.from({ length: rows }, () => Array.from({ length: cols }, () => 'empty' as const));
 }
+
+/**
+ * Copy-on-write updates for a 2D array: each touched row is copied once and
+ * untouched rows keep their identity, so memoized cells skip re-rendering.
+ */
+export function gridWriter<T>(cells: T[][]) {
+  let next: T[][] | undefined;
+  const copiedRows = new Set<number>();
+  return {
+    set(pos: Pos, value: T) {
+      next ??= cells.slice();
+      if (!copiedRows.has(pos.row)) {
+        next[pos.row] = next[pos.row]!.slice();
+        copiedRows.add(pos.row);
+      }
+      next[pos.row]![pos.col] = value;
+    },
+    /** The updated grid, or the original if nothing changed. */
+    result: (): T[][] => next ?? cells,
+  };
+}

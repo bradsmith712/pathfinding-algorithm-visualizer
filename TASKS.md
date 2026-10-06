@@ -40,16 +40,16 @@ Work in order. Check off each task when done. Run `typecheck`, `lint`, and `test
 
 ## Phase 4 — Visualize page
 
-- [ ] 4.1 Algorithm dropdown with per-algorithm short description and "Learn more →" link
-- [ ] 4.2 Animation hook: consumes generator; states idle/running/paused/finished
-- [ ] 4.3 Visited-cell animation, then path animation
-- [ ] 4.4 Controls: Start, Pause/Resume, Reset
-- [ ] 4.5 Speed slider (Slow, Normal, Fast, Instant) with label
-- [ ] 4.6 Lock drawing while running/paused; clear overlay on edit after finish
-- [ ] 4.7 Legend card
-- [ ] 4.8 Statistics card (nodes visited, path length, execution time via `performance.now()`); "No path found" state
-- [ ] 4.9 Info card with helper text and quote
-- [ ] 4.10 Respect `prefers-reduced-motion`
+- [x] 4.1 Algorithm dropdown with per-algorithm short description and "Learn more →" link
+- [x] 4.2 Animation hook: consumes generator; states idle/running/paused/finished
+- [x] 4.3 Visited-cell animation, then path animation
+- [x] 4.4 Controls: Start, Pause/Resume, Reset
+- [x] 4.5 Speed slider (Slow, Normal, Fast, Instant) with label
+- [x] 4.6 Lock drawing while running/paused; clear overlay on edit after finish
+- [x] 4.7 Legend card
+- [x] 4.8 Statistics card (nodes visited, path length, execution time via `performance.now()`); "No path found" state
+- [x] 4.9 Info card with helper text and quote
+- [x] 4.10 Respect `prefers-reduced-motion`
 
 ## Phase 5 — Learn page
 

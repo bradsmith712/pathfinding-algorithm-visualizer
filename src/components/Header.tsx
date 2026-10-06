@@ -17,15 +17,17 @@ interface HeaderProps {
 
 export function Header({ route, theme, onThemeChange }: HeaderProps) {
   return (
-    <header className="border-b border-border bg-surface">
-      <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-8 gap-y-2 px-4 py-3">
+    <header className="border-b border-border bg-bg">
+      <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-4 gap-y-1 md:gap-x-10 px-4 py-3 md:px-6">
         <a
           href={routeToHash({ page: 'visualize' })}
-          className="flex items-center gap-3 rounded-control"
+          className="flex items-center gap-3 rounded-control sm:gap-4"
         >
-          <Icon name="logo" className="h-9 w-9 shrink-0 text-accent" />
+          <Icon name="logo" className="h-9 w-9 shrink-0 text-accent sm:h-11 sm:w-11" />
           <span className="flex flex-col">
-            <span className="text-lg font-bold leading-tight">Pathfinding Visualizer</span>
+            <span className="text-lg font-semibold leading-tight sm:text-2xl">
+              Pathfinding Visualizer
+            </span>
             <span className="hidden text-sm text-muted sm:block">
               Explore algorithms. See the paths. Understand the logic.
             </span>
@@ -34,7 +36,7 @@ export function Header({ route, theme, onThemeChange }: HeaderProps) {
 
         <nav
           aria-label="Main"
-          className="order-last flex w-full gap-1 md:order-none md:ml-auto md:w-auto"
+          className="order-last flex w-full gap-2 md:order-none md:ml-auto md:w-auto md:gap-6"
         >
           {NAV_ITEMS.map(({ label, page }) => {
             const active = route.page === page;
@@ -43,19 +45,23 @@ export function Header({ route, theme, onThemeChange }: HeaderProps) {
                 key={page}
                 href={routeToHash({ page })}
                 aria-current={active ? 'page' : undefined}
-                className={`border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
-                  active
-                    ? 'border-accent text-accent'
-                    : 'border-transparent text-muted hover:text-fg'
+                className={`relative rounded-control px-3 pb-3 pt-2 text-base font-medium transition-colors ${
+                  active ? 'text-accent' : 'text-fg/85 hover:text-fg'
                 }`}
               >
                 {label}
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-3 bottom-1 h-[3px] rounded-full bg-accent"
+                  />
+                )}
               </a>
             );
           })}
         </nav>
 
-        <div className="ml-auto md:ml-0">
+        <div className="ml-auto md:ml-[clamp(1rem,8vw,10rem)]">
           <ThemeToggle theme={theme} onChange={onThemeChange} />
         </div>
       </div>
