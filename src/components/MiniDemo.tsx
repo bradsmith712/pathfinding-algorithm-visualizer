@@ -69,7 +69,7 @@ export function MiniDemo({ id }: MiniDemoProps) {
           <button
             type="button"
             onClick={onPlay}
-            className="flex h-10 items-center gap-2 rounded-control bg-accent px-4 text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90"
+            className="flex h-10 items-center gap-2 rounded-control bg-accent-solid px-4 text-sm font-semibold text-accent-fg transition hover:brightness-90"
           >
             <Icon name={playing ? 'pause' : 'play'} className="h-4 w-4" />
             {playing ? 'Pause' : 'Play'}
@@ -103,7 +103,7 @@ export function MiniDemo({ id }: MiniDemoProps) {
         />
       </div>
 
-      <div className="mt-5 grid gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+      <div className="mt-5 grid gap-6 md:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
         <div>
           <Grid
             cells={DEMO_MAZE.grid}

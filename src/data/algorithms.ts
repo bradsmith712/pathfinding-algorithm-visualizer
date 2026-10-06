@@ -48,6 +48,9 @@ export interface AlgorithmInfo {
   subtitle: string;
   /** Short description shown under the Visualize dropdown. */
   summary: string;
+  /** Data structure that orders the search (About page comparison table). */
+  structure: string;
+  usesHeuristic: boolean;
   /** Intro paragraph at the top of the Learn page. */
   intro: string;
   features: [Feature, Feature, Feature];
@@ -68,6 +71,8 @@ export const ALGORITHM_INFO: Record<AlgorithmId, AlgorithmInfo> = {
     tone: 'blue',
     subtitle: 'Heuristic search (recommended)',
     summary: 'A* uses heuristics to find the shortest path efficiently.',
+    structure: 'Priority queue by f = g + h',
+    usesHeuristic: true,
     intro:
       "A* is an informed search algorithm that finds the shortest path from a start node to a goal node. It combines the benefits of Dijkstra's algorithm (guaranteed optimal path) with a heuristic to prioritize nodes that are closer to the goal, making it much more efficient.",
     features: [
@@ -176,6 +181,8 @@ export const ALGORITHM_INFO: Record<AlgorithmId, AlgorithmInfo> = {
     tone: 'yellow',
     subtitle: 'Shortest path (no heuristic)',
     summary: "Dijkstra's explores outward by distance and always finds the shortest path.",
+    structure: 'Priority queue by distance g',
+    usesHeuristic: false,
     intro:
       "Dijkstra's algorithm finds the shortest path by always expanding the closest unexplored node to the start. It has no idea where the goal is, so it spreads out evenly in every direction, but it guarantees the shortest path whenever edge costs are non-negative.",
     features: [
@@ -282,6 +289,8 @@ export const ALGORITHM_INFO: Record<AlgorithmId, AlgorithmInfo> = {
     tone: 'violet',
     subtitle: 'Shortest path (unweighted)',
     summary: 'BFS explores level by level and finds the shortest path on an unweighted grid.',
+    structure: 'Queue (first in, first out)',
+    usesHeuristic: false,
     intro:
       'Breadth-First Search explores the grid one layer at a time: first every node one step from the start, then every node two steps away, and so on. Because every move costs the same, the first time it reaches the goal it has found a shortest path.',
     features: [
@@ -383,6 +392,8 @@ export const ALGORITHM_INFO: Record<AlgorithmId, AlgorithmInfo> = {
     tone: 'green',
     subtitle: 'Explores deeply',
     summary: 'DFS dives down one branch before backtracking. The path it finds can be long.',
+    structure: 'Stack (last in, first out)',
+    usesHeuristic: false,
     intro:
       'Depth-First Search follows one direction as far as it can before backing up and trying the next. It will find a path if one exists, but it pays no attention to distance, so the path is often long and winding.',
     features: [
@@ -480,6 +491,8 @@ export const ALGORITHM_INFO: Record<AlgorithmId, AlgorithmInfo> = {
     tone: 'red',
     subtitle: 'Heuristic search (faster, not optimal)',
     summary: 'Greedy Best-First heads straight for the goal. Fast, but not always the shortest.',
+    structure: 'Priority queue by heuristic h',
+    usesHeuristic: true,
     intro:
       'Greedy Best-First Search always expands the node that looks closest to the goal, judged only by the heuristic. It ignores how far it has already traveled, so it is often very fast, but it can be lured down dead ends and return a longer path.',
     features: [

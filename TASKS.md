@@ -65,12 +65,12 @@ Work in order. Check off each task when done. Run `typecheck`, `lint`, and `test
 
 ## Phase 6 — Polish
 
-- [ ] 6.1 About page (short description, how to use, credits)
-- [ ] 6.2 Light theme pass on every component
-- [ ] 6.3 Responsive layouts (tablet, mobile stacking)
-- [ ] 6.4 Accessibility pass: labels, focus states, keyboard access, contrast
-- [ ] 6.5 Performance check on animation; fix unnecessary re-renders
-- [ ] 6.6 Visual comparison against screenshots; fix spacing/color mismatches
+- [x] 6.1 About page (short description, how to use, credits)
+- [x] 6.2 Light theme pass on every component
+- [x] 6.3 Responsive layouts (tablet, mobile stacking)
+- [x] 6.4 Accessibility pass: labels, focus states, keyboard access, contrast
+- [x] 6.5 Performance check on animation; fix unnecessary re-renders
+- [x] 6.6 Visual comparison against screenshots; fix spacing/color mismatches
 
 ## Phase 7 — Ship
 

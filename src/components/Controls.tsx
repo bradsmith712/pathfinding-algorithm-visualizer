@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { CSSProperties } from 'react';
 import { SPEEDS, type PlaybackStatus, type Speed } from '../lib/playback';
 import { Card } from './Card';
@@ -18,7 +19,8 @@ interface ControlsProps {
 const SECONDARY_BUTTON =
   'flex h-11 items-center justify-center gap-2 rounded-control border border-border bg-surface-raised text-sm font-medium text-fg transition-colors hover:border-muted/50 disabled:cursor-not-allowed disabled:opacity-50';
 
-export function Controls({
+/** Memoized: skips re-rendering on animation frames when its props are unchanged. */
+export const Controls = memo(function Controls({
   status,
   onStart,
   onPause,
@@ -39,7 +41,7 @@ export function Controls({
         type="button"
         onClick={onStart}
         disabled={active}
-        className="flex h-11 w-full items-center justify-center gap-2 rounded-control bg-accent text-sm font-semibold text-accent-fg transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex h-11 w-full items-center justify-center gap-2 rounded-control bg-accent-solid text-sm font-semibold text-accent-fg transition hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <Icon name="play" className="h-4 w-4" />
         Start
@@ -97,4 +99,4 @@ export function Controls({
       />
     </Card>
   );
-}
+});

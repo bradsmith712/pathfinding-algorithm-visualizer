@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ALGORITHMS } from '../algorithms';
 import type { AlgorithmId } from '../algorithms/types';
 import { ALGORITHM_INFO } from '../data/algorithms';
@@ -11,7 +12,12 @@ interface AlgorithmSelectProps {
   disabled: boolean;
 }
 
-export function AlgorithmSelect({ value, onChange, disabled }: AlgorithmSelectProps) {
+/** Memoized: skips re-rendering on animation frames when its props are unchanged. */
+export const AlgorithmSelect = memo(function AlgorithmSelect({
+  value,
+  onChange,
+  disabled,
+}: AlgorithmSelectProps) {
   return (
     <Card step={2} title="Choose Algorithm">
       <div className="relative">
@@ -48,4 +54,4 @@ export function AlgorithmSelect({ value, onChange, disabled }: AlgorithmSelectPr
       </a>
     </Card>
   );
-}
+});

@@ -30,7 +30,7 @@ export function LearnPage({ algorithmId }: LearnPageProps) {
   }, [id]);
 
   return (
-    <div className="mx-auto grid max-w-[1600px] gap-5 p-4 md:px-6 lg:grid-cols-[19rem_minmax(0,1fr)] xl:grid-cols-[19rem_minmax(0,1fr)_18rem]">
+    <div className="mx-auto grid max-w-[1600px] gap-5 p-4 md:px-6 xl:px-4 lg:grid-cols-[19rem_minmax(0,1fr)] xl:grid-cols-[19rem_minmax(0,1fr)_18rem]">
       <aside className="flex flex-col gap-4">
         <AlgorithmList selected={id} />
       </aside>

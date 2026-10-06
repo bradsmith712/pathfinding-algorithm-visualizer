@@ -1,6 +1,8 @@
+import { memo } from 'react';
 import { Card } from './Card';
 
-export function InfoCard() {
+/** Memoized: skips re-rendering on animation frames when its props are unchanged. */
+export const InfoCard = memo(function InfoCard() {
   return (
     <Card icon="info" title="Info">
       <p className="text-sm leading-relaxed text-fg/85">
@@ -13,4 +15,4 @@ export function InfoCard() {
       </blockquote>
     </Card>
   );
-}
+});

@@ -31,7 +31,8 @@ export type IconName =
   | 'list'
   | 'rings'
   | 'bulb'
-  | 'step';
+  | 'step'
+  | 'external';
 
 const PATHS: Record<IconName, ReactNode> = {
   logo: (
@@ -156,6 +157,9 @@ const PATHS: Record<IconName, ReactNode> = {
       <path d="M5 4.5v15l10-7.5Z" fill="currentColor" stroke="none" />
       <rect x="16.5" y="4.5" width="3" height="15" rx="1" fill="currentColor" stroke="none" />
     </>
+  ),
+  external: (
+    <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
   ),
 };
 

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { Tool } from '../lib/gridState';
 import { Card } from './Card';
 import { Icon } from './Icon';
@@ -19,7 +20,8 @@ interface ToolPanelProps {
   disabled: boolean;
 }
 
-export function ToolPanel({
+/** Memoized: skips re-rendering on animation frames when its props are unchanged. */
+export const ToolPanel = memo(function ToolPanel({
   tool,
   onToolChange,
   onClearWalls,
@@ -62,4 +64,4 @@ export function ToolPanel({
       </button>
     </Card>
   );
-}
+});

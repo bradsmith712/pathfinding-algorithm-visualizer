@@ -19,24 +19,27 @@
     --color-border: 216 223 233;
     --color-fg: 15 23 42;
     --color-muted: 84 98 120;
-    --color-accent: 30 144 255;
+    /* Darker than the dark theme's accent so blue text passes 4.5:1 on white */
+    --color-accent: 0 102 204;
+    /* Fill for buttons with white text (4.5:1) */
+    --color-accent-solid: 0 102 204;
     --color-accent-fg: 255 255 255;
 
     --color-cell-empty: 255 255 255;
     --color-cell-line: 216 223 233;
-    --color-cell-wall: 98 104 113;
-    --color-cell-start: 22 186 86;
-    --color-cell-end: 232 60 60;
-    --color-cell-visited: 165 205 252;
+    --color-cell-wall: 40 48 62;
+    --color-cell-start: 21 150 68;
+    --color-cell-end: 220 38 38;
+    --color-cell-visited: 110 170 245;
     --color-cell-visited-recent: 30 100 210;
-    --color-cell-path: 2 132 199;
-    --color-cell-path-edge: 7 74 112;
-    --color-cell-current: 234 179 8;
+    --color-cell-path: 3 95 160;
+    --color-cell-path-edge: 1 50 90;
+    --color-cell-current: 250 204 21;
 
     /* Icon tones (Learn list and feature cards) */
     --color-tone-blue: 30 144 255;
     --color-tone-green: 22 163 74;
-    --color-tone-yellow: 202 138 4;
+    --color-tone-yellow: 161 98 7;
     --color-tone-red: 220 38 38;
     --color-tone-violet: 124 58 237;
 
@@ -55,6 +58,7 @@
     --color-fg: 232 236 242;
     --color-muted: 160 170 186;
     --color-accent: 30 144 255;
+    --color-accent-solid: 0 104 214;
     --color-accent-fg: 255 255 255;
 
     --color-cell-empty: 11 16 24;
@@ -146,5 +150,19 @@
 @layer components {
   .path-cell {
     @apply bg-cell-path ring-[1.5px] ring-inset ring-cell-path-edge;
+  }
+}
+
+/*
+ * Keyboard cursor on the Visualize grid: a two-tone ring (text color outside,
+ * background color inside) so it stays visible on every cell color.
+ */
+@layer components {
+  .grid-cursor {
+    position: relative;
+    z-index: 1;
+    outline: 2px solid rgb(var(--color-fg));
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 4px rgb(var(--color-bg));
   }
 }

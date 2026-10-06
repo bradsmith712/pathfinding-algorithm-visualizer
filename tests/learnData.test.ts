@@ -42,6 +42,11 @@ describe('algorithm content', () => {
     });
   });
 
+  it('marks A* and Greedy as the heuristic searches', () => {
+    const heuristic = ALGORITHMS.filter((a) => ALGORITHM_INFO[a.id].usesHeuristic).map((a) => a.id);
+    expect(heuristic).toEqual(['astar', 'greedy']);
+  });
+
   it('marks only A*, Dijkstra and BFS as optimal', () => {
     const optimal = ALGORITHMS.filter((a) => ALGORITHM_INFO[a.id].complexity.optimal).map(
       (a) => a.id,

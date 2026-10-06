@@ -15,6 +15,7 @@ export default {
         fg: token('fg'),
         muted: token('muted'),
         accent: token('accent'),
+        'accent-solid': token('accent-solid'),
         'accent-fg': token('accent-fg'),
         tone: {
           blue: token('tone-blue'),

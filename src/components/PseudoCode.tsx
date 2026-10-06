@@ -29,10 +29,7 @@ export function PseudoCode({ lines }: PseudoCodeProps) {
           const indent = line.length - line.trimStart().length;
           return (
             <li key={i} className="flex break-inside-avoid gap-2.5 py-px">
-              <span
-                aria-hidden="true"
-                className="w-5 shrink-0 select-none text-right text-muted/70"
-              >
+              <span aria-hidden="true" className="w-5 shrink-0 select-none text-right text-muted">
                 {i + 1}
               </span>
               <code

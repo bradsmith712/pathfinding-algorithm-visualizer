@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card } from './Card';
 
 const ITEMS: { label: string; swatch: string }[] = [
@@ -9,7 +10,8 @@ const ITEMS: { label: string; swatch: string }[] = [
   { label: 'Path', swatch: 'path-cell' },
 ];
 
-export function Legend() {
+/** Memoized: skips re-rendering on animation frames when its props are unchanged. */
+export const Legend = memo(function Legend() {
   return (
     <Card icon="layers" title="Legend">
       <ul className="flex flex-col gap-3">
@@ -22,4 +24,4 @@ export function Legend() {
       </ul>
     </Card>
   );
-}
+});

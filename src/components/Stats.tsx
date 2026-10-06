@@ -31,7 +31,7 @@ export function Stats({ status, run, visitedShown }: StatsProps) {
           <div key={label} className="flex items-center justify-between gap-2">
             <dt className="text-fg/85">{label}</dt>
             <dd
-              className={`font-semibold tabular-nums ${value === 'No path' ? 'text-cell-end' : ''}`}
+              className={`font-semibold tabular-nums ${value === 'No path' ? 'text-tone-red' : ''}`}
             >
               {value}
             </dd>
@@ -40,7 +40,7 @@ export function Stats({ status, run, visitedShown }: StatsProps) {
       </dl>
       <div role="status" aria-live="polite">
         {noPath && (
-          <p className="mt-3 rounded-control border border-cell-end/40 bg-cell-end/10 px-3 py-2 text-sm font-medium text-cell-end">
+          <p className="mt-3 rounded-control border border-tone-red/40 bg-tone-red/10 px-3 py-2 text-sm font-medium text-tone-red">
             No path found. The end can't be reached from the start.
           </p>
         )}

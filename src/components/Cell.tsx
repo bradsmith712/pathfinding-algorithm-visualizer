@@ -22,6 +22,8 @@ interface CellProps {
    * 'fill' (Visualize: darker blue) or 'outline' (Learn demo: yellow outline).
    */
   current: 'fill' | 'outline' | null;
+  /** Keyboard cursor position (Visualize grid only). */
+  isCursor: boolean;
 }
 
 function cellClass(
@@ -37,14 +39,16 @@ function cellClass(
 }
 
 /** One grid square. Memoized: re-renders only when its own props change. */
-export const Cell = memo(function Cell({ row, col, type, overlay, current }: CellProps) {
+export const Cell = memo(function Cell({ row, col, type, overlay, current, isCursor }: CellProps) {
   return (
     <div
       data-row={row}
       data-col={col}
       data-type={type}
       data-overlay={overlay ?? undefined}
-      className={`aspect-square border-b border-r border-cell-line ${cellClass(type, overlay, current)}`}
+      className={`aspect-square border-b border-r border-cell-line ${cellClass(type, overlay, current)} ${
+        isCursor ? 'grid-cursor' : ''
+      }`}
     />
   );
 });
