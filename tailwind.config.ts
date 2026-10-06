@@ -37,6 +37,7 @@ export default {
           visited: token('cell-visited'),
           'visited-recent': token('cell-visited-recent'),
           path: token('cell-path'),
+          'path-edge': token('cell-path-edge'),
           current: token('cell-current'),
         },
       },

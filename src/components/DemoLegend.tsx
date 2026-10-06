@@ -5,7 +5,7 @@ const ITEMS: { label: string; swatch: string }[] = [
   { label: 'Goal', swatch: 'bg-cell-end' },
   { label: 'Visited', swatch: 'bg-cell-visited' },
   { label: 'Current', swatch: 'bg-cell-visited-recent ring-2 ring-inset ring-cell-current' },
-  { label: 'Path', swatch: 'bg-cell-path' },
+  { label: 'Path', swatch: 'path-cell' },
 ];
 
 export function DemoLegend() {

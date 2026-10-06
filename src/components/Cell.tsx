@@ -9,7 +9,7 @@ const BASE_CLASSES: Record<Exclude<CellType, 'empty'>, string> = {
 
 const OVERLAY_CLASSES: Record<OverlayType, string> = {
   visited: 'bg-cell-visited motion-safe:animate-cell-visit',
-  path: 'bg-cell-path motion-safe:animate-cell-path',
+  path: 'path-cell motion-safe:animate-cell-path',
 };
 
 interface CellProps {

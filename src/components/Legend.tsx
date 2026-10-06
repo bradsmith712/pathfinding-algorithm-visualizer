@@ -6,7 +6,7 @@ const ITEMS: { label: string; swatch: string }[] = [
   { label: 'Start Node', swatch: 'bg-cell-start' },
   { label: 'End Node', swatch: 'bg-cell-end' },
   { label: 'Visited Node', swatch: 'bg-cell-visited' },
-  { label: 'Path', swatch: 'bg-cell-path' },
+  { label: 'Path', swatch: 'path-cell' },
 ];
 
 export function Legend() {

@@ -27,9 +27,10 @@
     --color-cell-wall: 98 104 113;
     --color-cell-start: 22 186 86;
     --color-cell-end: 232 60 60;
-    --color-cell-visited: 96 165 250;
+    --color-cell-visited: 165 205 252;
     --color-cell-visited-recent: 30 100 210;
-    --color-cell-path: 14 165 233;
+    --color-cell-path: 2 132 199;
+    --color-cell-path-edge: 7 74 112;
     --color-cell-current: 234 179 8;
 
     /* Icon tones (Learn list and feature cards) */
@@ -63,7 +64,8 @@
     --color-cell-end: 242 72 72;
     --color-cell-visited: 30 128 240;
     --color-cell-visited-recent: 24 76 150;
-    --color-cell-path: 34 178 250;
+    --color-cell-path: 110 215 255;
+    --color-cell-path-edge: 14 100 160;
     --color-cell-current: 250 204 21;
 
     --color-tone-blue: 56 152 255;
@@ -133,5 +135,16 @@
   }
   .range::-moz-range-thumb {
     @apply h-4 w-4 rounded-full border-0 bg-accent;
+  }
+}
+
+/*
+ * Path cells: fill plus a thin darker inner frame, so the path stays
+ * distinguishable from visited cells without relying on color alone.
+ * Shared by the grid cells and both legends.
+ */
+@layer components {
+  .path-cell {
+    @apply bg-cell-path ring-[1.5px] ring-inset ring-cell-path-edge;
   }
 }
